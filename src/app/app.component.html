@@ -1,3 +1,4 @@
+<div class="bg"></div>
 <div class="header">
   <h1>[ER]code generator</h1>
   <p>
@@ -6,93 +7,103 @@
   <p>Print it, keep it safe with you, everywhere you go.</p>
 </div>
 
-<!-- Display form where user can give data to generate QR code with medical infos -->
-<div class="displayForm">
-  <form class="form" id="erCodeForm">
-    <div class="form-group">
-      <label for="name" class="form-label">
-        <i class="fa-solid fa-user icon"></i>
-        Firstname*</label
-      >
-      <input
-        type="text"
-        name="firstname"
-        placeholder="Add meg a neved"
-        class="form-control"
-        [(ngModel)]="erCodeForm.firstname"
-      />
-    </div>
-    <div class="form-group">
-      <label for="bloodType" class="form-label">
-        <i class="fa-solid fa-user icon"></i>
-        Blood type*</label
-      >
-      <input
-        type="text"
-        name="bloodType"
-        placeholder="Add meg a vércsoportod"
-        class="form-control"
-        [(ngModel)]="erCodeForm.bloodType"
-      />
-    </div>
-    <div class="form-group">
-      <label for="age" class="form-label">
-        <i class="fa-solid fa-user icon"></i>
-        Age</label
-      >
-      <input
-        type="text"
-        name="age"
-        placeholder="Add meg a korod"
-        class="form-control"
-        [(ngModel)]="erCodeForm.age"
-      />
-    </div>
-    <div class="form-group">
-      <label for="sickness" class="form-label">
-        <i class="fa-solid fa-user icon"></i>
-        Illness:</label
-      >
-      <input
-        type="text"
-        name="age"
-        placeholder="Add meg a betegséged"
-        class="form-control"
-        [(ngModel)]="erCodeForm.sickness"
-      />
-    </div>
-    <div class="form-group">
-      <label for="medicine" class="form-label">
-        <i class="fa-solid fa-user icon"></i>
-        Medicine:</label
-      >
-      <input
-        type="text"
-        name="medicine"
-        placeholder="Add meg a betegséged"
-        class="form-control"
-        [(ngModel)]="erCodeForm.medicine"
-      />
-    </div>
+<div class="box">
+  <!-- Display form where user can give data to generate QR code with medical infos -->
+  <div class="displayForm">
+    <form class="form" id="erCodeForm">
+      <div class="form-group">
+        <label for="name" class="form-label">
+          <i class="fa-solid fa-user icon"></i>
+          Firstname*</label
+        >
+        <input
+          type="text"
+          name="firstname"
+          placeholder="Your firstname"
+          class="form-control"
+          [(ngModel)]="erCodeForm.firstname"
+        />
+      </div>
+      <div class="form-group">
+        <label for="bloodType" class="form-label">
+          <i class="fa-solid fa-droplet icon"></i>
+          Blood type*</label
+        >
+        <input
+          type="text"
+          name="bloodType"
+          placeholder="Your blood type eg. '0 negative'"
+          class="form-control"
+          [(ngModel)]="erCodeForm.bloodType"
+        />
+      </div>
+      <div class="form-group">
+        <label for="age" class="form-label">
+          <i class="fa-regular fa-calendar icon"></i>
+          Age</label
+        >
+        <input
+          type="text"
+          name="age"
+          placeholder="Your age"
+          class="form-control"
+          [(ngModel)]="erCodeForm.age"
+        />
+      </div>
+      <div class="form-group">
+        <label for="sickness" class="form-label">
+          <i class="fa-solid fa-virus icon"></i>
+          Illness(es):</label
+        >
+        <input
+          type="text"
+          name="age"
+          placeholder="Your illness(es)"
+          class="form-control"
+          [(ngModel)]="erCodeForm.sickness"
+        />
+      </div>
+      <div class="form-group">
+        <label for="medicine" class="form-label">
+          <i class="fa-solid fa-syringe icon"></i>
+          Medicine(s):</label
+        >
+        <input
+          type="text"
+          name="medicine"
+          placeholder="Your medicine(s)"
+          class="form-control"
+          [(ngModel)]="erCodeForm.medicine"
+        />
+      </div>
 
-    <button
-      type="submit"
-      id="submit"
-      class="btn btn-submit"
-      (click)="generateERcode(erCodeForm)"
-    >
-      Generate [ER] code
+      <div class="button-box">
+        <button
+          type="submit"
+          id="submit"
+          class="btn btn-submit"
+          (click)="generateERcode(erCodeForm)"
+        >
+          Generate [ER]code
+          <!-- <i class="fa-solid fa-arrow-right generateIcon"></i> -->
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Display QR code to user after they generated -->
+  <div class="displayQRcode">
+    <h3>Your personal medical [ER]code:</h3>
+    <qrcode
+      [qrdata]="myAngularQrcode"
+      [width]="256"
+      [errorCorrectionLevel]="'M'"
+    ></qrcode>
+    <button class="btn btn-download">
+      <!-- <i class="fa-solid fa-download downloadIcon"></i> -->
+      Download as picture
     </button>
-  </form>
+  </div>
 </div>
 
-<!-- Display QR code to user after they generated -->
-<div class="displayQRcode">
-  <qrcode
-    [qrdata]="myAngularQrcode"
-    [width]="256"
-    [errorCorrectionLevel]="'M'"
-  ></qrcode>
-</div>
-
-<footer>2023 | Copyright @ArminVndg</footer>
+<!-- <footer>2023 | Copyright @ArminVndg</footer> -->
