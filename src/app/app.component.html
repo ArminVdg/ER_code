@@ -1,8 +1,10 @@
 <div class="bg"></div>
 <div class="header">
-  <h1>[ER]code generator</h1>
+  <h1>[ER]code generator | Emergency / first aid infos</h1>
+
   <p>
-    Give your personal medical infos to generate [ER]code - your medical QRcode
+    Give your personal medical infos to generate [ER]code. This is your medical
+    QRcode.
   </p>
   <p>Print it, keep it safe with you, everywhere you go.</p>
 </div>
@@ -76,6 +78,23 @@
           [(ngModel)]="erCodeForm.medicine"
         />
       </div>
+      <div class="form-group">
+        <div class="pill-container">
+          <label for="pills" class="form-label">
+            <i class="fa-solid fa-pills"></i>
+            Do you need xanax?
+          </label>
+          <input
+            type="checkbox"
+            name="pills"
+            placeholder="Always"
+            class="form-control pill-checkbox"
+            checked
+            [(ngModel)]="erCodeForm.pills"
+          />
+          <span class="always">Always.</span>
+        </div>
+      </div>
 
       <div class="button-box">
         <button
@@ -92,17 +111,18 @@
   </div>
 
   <!-- Display QR code to user after they generated -->
-  <div class="displayQRcode">
+  <div class="displayERcode">
     <h3>Your personal medical [ER]code:</h3>
     <qrcode
       [qrdata]="myAngularQrcode"
       [width]="256"
       [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    <button class="btn btn-download">
-      <!-- <i class="fa-solid fa-download downloadIcon"></i> -->
+      #ERcode
+    >
+    </qrcode>
+    <!-- <button class="btn btn-download" (click)="downloadERcode()">
       Download as picture
-    </button>
+    </button> -->
   </div>
 </div>
 
