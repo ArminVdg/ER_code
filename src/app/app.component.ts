@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   title = 'ER_code';
   toastRef: any;
+  isClicked: number = 0;
 
   erCodeForm: any = {
     firstname: '',
@@ -31,20 +33,27 @@ export class AppComponent {
 
 
   generateERcode(erCodeForm: any) {
-    let currentForm = {
-      firstname: erCodeForm.firstname,
-      bloodType: erCodeForm.bloodType,
-      age: erCodeForm.age,
-      sickness: erCodeForm.sickness,
-      medicine: erCodeForm.medicine,
-      pills: true
+    if (
+      (this.erCodeForm.firstname = 'Your name') &&
+      (this.erCodeForm.bloodType = "Your blood type eg. '0 negative'")) {
+      this.emptyFormError()
     }
+    else {
+      this.isClicked = 1;
+      let currentForm = {
+        firstname: erCodeForm.firstname,
+        bloodType: erCodeForm.bloodType,
+        age: erCodeForm.age,
+        sickness: erCodeForm.sickness,
+        medicine: erCodeForm.medicine,
+        pills: true
+      }
 
-    let formToString: string = JSON.stringify(currentForm);
-    console.log(formToString);
-
-    this.myAngularQrcode = formToString;
-    this.showFormSuccess();
+      let formToString: string = JSON.stringify(currentForm);
+      this.myAngularQrcode = formToString;
+      this.changeCodeBoxBgColor();
+      this.showFormSuccess();
+    }
   }
 
   refreshForm(): void {
@@ -61,17 +70,12 @@ export class AppComponent {
     this.toastr.success('Congratulations! Your [ER]code is generated successfully!');
   }
 
-  /*  downloadERcode() {
-     const canvas: any = document.getElementById("ERcode");
- 
-     const pngUrl = canvas[0].toDataURL("image/png");
-     let downloadLink = document.createElement("a");
-     downloadLink.href = pngUrl;
-     downloadLink.download = 'ERcode';
-     document.body.appendChild(downloadLink);
-     downloadLink.click();
-     document.body.removeChild(downloadLink);
-   }
-  */
+  changeCodeBoxBgColor() {
+    let ERcodeBox: HTMLDivElement | any = document.getElementById("#ERcodeBox");
+    ERcodeBox.classList.add("newBg");
+  }
 
+  emptyFormError() {
+    this.toastr.error('The form is empty, or has unfilled parts. Please fill the required fields.');
+  }
 }
