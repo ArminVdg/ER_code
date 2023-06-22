@@ -10,10 +10,10 @@ import { empty } from 'rxjs';
 export class AppComponent {
   title = 'ER_code';
   toastRef: any;
-  isClicked: number = 0;
+  isSubmitted: boolean = false;
 
   erCodeForm: any = {
-    firstname: '',
+    name: '',
     bloodType: '',
     age: '',
     sickness: '',
@@ -29,19 +29,26 @@ export class AppComponent {
     this.myAngularQrcode = 'your qr code data string';
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.erCodeForm = {
+      name: '',
+      bloodType: '',
+      age: '',
+      sickness: '',
+      medicine: '',
+      pills: true
+    }
+  }
 
 
   generateERcode(erCodeForm: any) {
-    if (
-      (this.erCodeForm.firstname = 'Your name') &&
-      (this.erCodeForm.bloodType = "Your blood type eg. '0 negative'")) {
-      this.emptyFormError()
+    if (this.erCodeForm.name.trim() === "") {
+      this.emptyFormError();
     }
     else {
-      this.isClicked = 1;
+      this.isSubmitted = true;
       let currentForm = {
-        firstname: erCodeForm.firstname,
+        name: erCodeForm.name,
         bloodType: erCodeForm.bloodType,
         age: erCodeForm.age,
         sickness: erCodeForm.sickness,
@@ -51,31 +58,39 @@ export class AppComponent {
 
       let formToString: string = JSON.stringify(currentForm);
       this.myAngularQrcode = formToString;
-      this.changeCodeBoxBgColor();
+      this.addSuccessClass();
       this.showFormSuccess();
+      this.refreshForm();
     }
   }
 
   refreshForm(): void {
     this.erCodeForm = {
-      firstname: '',
+      name: '',
       bloodType: '',
       age: '',
       sickness: '',
-      medicine: ''
+      medicine: '',
+      pills: true
     }
+    setTimeout(this.removeSuccessClass, 5000)
   }
 
   showFormSuccess() {
     this.toastr.success('Congratulations! Your [ER]code is generated successfully!');
   }
 
-  changeCodeBoxBgColor() {
-    let ERcodeBox: HTMLDivElement | any = document.getElementById("#ERcodeBox");
+  addSuccessClass() {
+    let ERcodeBox: any = document.getElementById("displayER");
     ERcodeBox.classList.add("newBg");
   }
 
+  removeSuccessClass() {
+    let ERcodeBox: any = document.getElementById("displayER");
+    ERcodeBox.classList.remove("newBg");
+  }
+
   emptyFormError() {
-    this.toastr.error('The form is empty, or has unfilled parts. Please fill the required fields.');
+    this.toastr.error('The form is empty, or reuqired fields need to be filled.');
   }
 }

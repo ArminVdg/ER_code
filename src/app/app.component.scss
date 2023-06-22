@@ -102,6 +102,7 @@ select:hover,
 select:focus {
   background-color: whitesmoke;
   outline: none;
+  border-bottom: 1px solid rgba(255, 86, 86, 0.8);
 }
 
 .pill-container {
@@ -141,7 +142,7 @@ select:focus {
 
 .btn-submit:hover {
   border: 2px solid white;
-  background-color: rgb(76, 97, 143);
+  background-color: rgba(255, 86, 86, 0.8);
   color: white;
 }
 

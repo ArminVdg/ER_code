@@ -21,10 +21,16 @@
         <input
           type="text"
           name="name"
-          placeholder="Your name"
           class="form-control"
+          minlength="2"
           [(ngModel)]="erCodeForm.name"
         />
+        <div
+          *ngIf="
+            erCodeForm.name.invalid &&
+            (erCodeForm.name.dirty || erCodeForm.name.touched)
+          "
+        ></div>
       </div>
       <div class="form-group">
         <label for="bloodType" class="form-label">
@@ -34,8 +40,8 @@
         <input
           type="text"
           name="bloodType"
-          placeholder="Your blood type eg. '0 negative'"
           class="form-control"
+          minlength="2"
           [(ngModel)]="erCodeForm.bloodType"
         />
       </div>
@@ -45,9 +51,8 @@
           Age</label
         >
         <input
-          type="text"
+          type="number"
           name="age"
-          placeholder="Your age"
           class="form-control"
           [(ngModel)]="erCodeForm.age"
         />
@@ -60,7 +65,6 @@
         <input
           type="text"
           name="age"
-          placeholder="Your illness(es)"
           class="form-control"
           [(ngModel)]="erCodeForm.sickness"
         />
@@ -73,7 +77,6 @@
         <input
           type="text"
           name="medicine"
-          placeholder="Your medicine(s)"
           class="form-control"
           [(ngModel)]="erCodeForm.medicine"
         />
@@ -87,7 +90,6 @@
           <input
             type="checkbox"
             name="pills"
-            placeholder="Always"
             class="form-control pill-checkbox"
             checked
             [(ngModel)]="erCodeForm.pills"
@@ -110,7 +112,7 @@
   </div>
 
   <!-- Display QR code to user after they generated -->
-  <div class="displayERcode" [ngClass]="{ newBg: isClicked > 0 }">
+  <div class="displayERcode" id="displayER">
     <h3>Your personal medical [ER]code:</h3>
     <qrcode
       [qrdata]="myAngularQrcode"
@@ -121,4 +123,4 @@
     </qrcode>
   </div>
 </div>
-<footer>Copyright © 2023 | ArminVndg | All Rights Reserved</footer>
+<footer>Copyright © 2023 | DavyDev | All Rights Reserved</footer>
